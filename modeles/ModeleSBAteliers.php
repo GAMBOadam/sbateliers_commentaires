@@ -114,13 +114,15 @@ FIN_REQ_AUTRES_COMMENTAIRES;
 				$st -> execute( array( ':atelier' => $numeroAtelier , ':client' => $numeroClient ) ) ;
 				$st->closeCursor() ;
 			}
-			
+			else{
 			$sql = "insert into commenter "
 				 . "values( :client , :atelier , :commentaire , CURRENT_DATE() ) " ;
 				 
 			$st = $bd -> prepare( $sql ) ;
 			$st -> execute( array( ':atelier' => $numeroAtelier , ':client' => $numeroClient , ':commentaire' => $commentaire ) ) ;
 			$st->closeCursor() ;
+
+			}
 		}
 		
 		public static function getMonCommentaireAtelier( $numeroAtelier , $numeroClient ){
