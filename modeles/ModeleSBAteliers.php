@@ -89,12 +89,16 @@ FIN_REQ_AUTRES_COMMENTAIRES;
 		
 		public static function commenterAtelier( $numeroAtelier , $numeroClient , $commentaire ){
 			$bd = self::getConnexion() ;
-			$sql = <<<FIN_REQ_COMMENTAIRES
-				select *
-				from commenter
-				where commenter.atelier = :atelier
-				and commenter.client = :client
-FIN_REQ_COMMENTAIRES;
+			$verifParticipation = "select * from participer where client = :client and atelier = :atelier";
+    			$verifierParticipation = $bd->prepare($verifParticipation);
+    			$verifierParticipation->execute(array(':client' => $numeroClient, ':atelier' => $numeroAtelier));
+    			$participation = $verifierParticipation->fetchAll(PDO::FETCH_ASSOC);
+    			$verifierParticipation->closeCursor();
+
+    			if (count($participation) == 0) {
+        
+        			return array('error' => 'Le client doit participer à cet atelier pour commenter.');
+   			}
 
 			$st = $bd->prepare( $sql ) ;
 			$st->execute( array( ':atelier' => $numeroAtelier , ':client' => $numeroClient ) ) ;
