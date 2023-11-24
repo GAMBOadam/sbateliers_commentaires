@@ -36,15 +36,20 @@
 		</div>
 		
 		<hr />
+		<?php if ($atelierparticipe = TRUE) { ?>
 				
-		<form action="/sbateliers/ateliers/<?= $atelier[ 'numero' ] ?>/commenter" method="POST">
+			<form action="/sbateliers/ateliers/<?= $atelier[ 'numero' ] ?>/commenter" method="POST">
 		
-			<textarea name="commentaire" rows="10" cols="40" >
-			</textarea>
+				<textarea name="commentaire" rows="10" cols="40" >
+				</textarea>
 			
-			<input type="submit" value="Valider" />
+				<input type="submit" value="Valider" />
 		
-		</form>
+			</form>
+
+		<?php } else { ?>
+			<p>Vous ne pouvez pas commenter tant que vous n'avez pas participer à l'atelier.</p>      
+		<?php } ?>
 		
 	</body>
 	
