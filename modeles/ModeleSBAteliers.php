@@ -106,9 +106,6 @@ FIN_REQ_AUTRES_COMMENTAIRES;
 			$st->closeCursor() ;
 			
 			if( count( $commentaires ) != 0 ){
-				$sql = "delete from commenter "
-					 . "where commenter.atelier = :atelier "
-					 . "and commenter.client = :client" ;
 			
 				$st = $bd -> prepare( $sql ) ;
 				$st -> execute( array( ':atelier' => $numeroAtelier , ':client' => $numeroClient ) ) ;
